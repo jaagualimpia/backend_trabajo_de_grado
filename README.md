@@ -1,0 +1,1 @@
+Este es la aplicación de backend que hace parte de el trabajo realizado por Jorge Agualimpia y Andres Escobar
