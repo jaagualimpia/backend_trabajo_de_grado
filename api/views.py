@@ -5,6 +5,7 @@ from api.serializers import UserSerializer, DiagnosisSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import rest_framework.status as status 
+from django.contrib.auth.hashers import make_password, check_password
 
 
 # Create your views here.
@@ -30,13 +31,30 @@ class SignUpView(APIView):
 
     #TODO post method in SignUpView with authentication
     def post(self, request):
+        user = UserSerializer(data=request.data)
 
-        print(request.data)
+        if user.is_valid():
+            password = user.validated_data["password"]
 
-        return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
+            user.validated_data["password"] = make_password(user.validated_data["password"])
+            print("Validando que si sea", check_password(password, user.validated_data["password"]))
+
+            user.save()
+
+            return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AuthenticationView(APIView):
     permission_classes = [permissions.AllowAny]
 
-    def get(self, request, *args, **kwargs):
-        return Response(data={"token": "1234"}, status=status.HTTP_200_OK)
+    def post(self, request):
+        user = request.data
+        print(user)
+        
+        user_in_db = User.objects.get(username=user["username"])
+
+        if not check_password(user["password"], user_in_db.password):
+            return Response(data={"message": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(data={"token": "1234"}, status=status.HTTP_200_OK)

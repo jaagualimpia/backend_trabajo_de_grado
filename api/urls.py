@@ -9,7 +9,7 @@ router.register(r'users', views.UserViewSet)
 router.register(r'diagnosis', views.DiagnosisViewSet)
 
 urlpatterns = [
-    path("auth/signin", views.AuthenticationView.as_view(), name="signin"),
+    path("auth/signIn", views.AuthenticationView.as_view(), name="signIn"),
     path("auth/signUp", views.SignUpView.as_view(), name="signUp")
 ]
 
