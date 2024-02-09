@@ -7,7 +7,6 @@ from rest_framework.response import Response
 import rest_framework.status as status 
 from django.contrib.auth.hashers import make_password, check_password
 
-
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -49,9 +48,7 @@ class AuthenticationView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        user = request.data
-        print(user)
-        
+        user = request.data        
         user_in_db = User.objects.get(username=user["username"])
 
         if not check_password(user["password"], user_in_db.password):
