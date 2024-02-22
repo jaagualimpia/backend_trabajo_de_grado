@@ -8,6 +8,15 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['username', 'email', 'password']
 
 class DiagnosisSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     class Meta:
         model = Diagnosis
-        fields = ['diagnosis_result', 'diagnosis_date', 'patient_date_of_birth', 'patient_name', 'image_url']
+        fields = "__all__"
+
+class DiagnosisPostSerializer(serializers.HyperlinkedModelSerializer):
+
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
+    class Meta:
+        model = Diagnosis
+        fields = ['patient_date_of_birth', 'patient_name', 'image_url', 'user']

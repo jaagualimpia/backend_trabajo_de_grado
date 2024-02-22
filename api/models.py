@@ -14,5 +14,5 @@ class Diagnosis(models.Model):
     diagnosis_result = models.CharField(max_length=100)
     diagnosis_date = models.DateTimeField(auto_now_add=True)
     patient_date_of_birth = models.DateTimeField(auto_now=True)
-    patient_name = models.DateTimeField(auto_now=True)
-    image_url = models.CharField(max_length=100)
+    patient_name = models.CharField(max_length=100)
+    image_url = models.ImageField(upload_to='images/', blank=True, null=True)
