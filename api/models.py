@@ -9,6 +9,7 @@ class User(AbstractUser):
     date_joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
+
 class Diagnosis(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     diagnosis_result = models.CharField(max_length=100)
