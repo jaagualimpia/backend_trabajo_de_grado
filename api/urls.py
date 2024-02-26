@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import (
 )
 
 from api import views
+from .serializers import CustomTokenObtainPairSerializer
 
 router = routers.DefaultRouter()
 router.register(r'list_diagnosis', views.DiagnosisViewSet)
@@ -15,7 +16,7 @@ urlpatterns = [
     path("auth/signup", views.SignUpView.as_view(), name="signUp"),
     path('auth/signin', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('diagnosis/', views.DiagnosisList.as_view(), name='diagnosis-list')
+    path('diagnosis', views.DiagnosisList.as_view(), name='diagnosis-list')
     ]
 
 urlpatterns += router.urls

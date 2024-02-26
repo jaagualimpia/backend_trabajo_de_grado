@@ -41,6 +41,8 @@ CORS_ALLOW_HEADERS = (
     "Access-Control-Allow-Origin",
 )
 
+APPEND_SLASH = False
+
 CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
@@ -112,6 +114,7 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    'TOKEN_SERIALIZER': '..api.serializers.CustomTokenObtainPairSerializer',
 }
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -142,6 +145,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'api.authentication.EmailAuthBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
