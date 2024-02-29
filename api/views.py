@@ -17,7 +17,7 @@ class DiagnosisViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows diagnosis to be viewed or edited.
     """
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     queryset = Diagnosis.objects.all().order_by('-diagnosis_date')
     serializer_class = DiagnosisSerializer
 
@@ -58,6 +58,9 @@ class DiagnosisList(APIView):
 
     def post(self, request):
         try:
+            user, token = jwt_authentication.authenticate(request)
+
+            request.data["user"] = user.id        
             diagnosis = DiagnosisPostSerializer(data=request.data)
             
             if diagnosis.is_valid():

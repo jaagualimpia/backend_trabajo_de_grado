@@ -14,21 +14,22 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         return token
 
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
 
+
 class DiagnosisSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     class Meta:
         model = Diagnosis
-        fields = "__all__"
-
+        fields = ["id", "diagnosis_result", "diagnosis_date", "patient_date_of_birth", "patient_name", "image_url"]
+ 
+ 
 class DiagnosisPostSerializer(serializers.HyperlinkedModelSerializer):
-
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = Diagnosis
-        fields = ['patient_date_of_birth', 'patient_name', 'image_url', 'user']
+        fields = ['id', 'patient_date_of_birth', 'patient_name', 'image_url', 'user']
