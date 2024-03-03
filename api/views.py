@@ -60,10 +60,11 @@ class DiagnosisList(APIView):
         try:
             user, token = jwt_authentication.authenticate(request)
 
-            request.data["user"] = user.id        
+            request.data["user"] = user.id     
+            # print(request.data)   
             diagnosis = DiagnosisPostSerializer(data=request.data)
-            
             if diagnosis.is_valid():
+                print(diagnosis.validated_data["patient_date_of_birth"])
 
                 diagnosis.save()
                 return Response(diagnosis.data, status=status.HTTP_201_CREATED)
