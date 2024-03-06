@@ -7,8 +7,6 @@ from rest_framework.response import Response
 import rest_framework.status as status 
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.pagination import PageNumberPagination
-from django.core import serializers
 
 # Create your views here.
 
