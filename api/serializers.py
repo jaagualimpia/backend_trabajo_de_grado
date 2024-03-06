@@ -33,3 +33,10 @@ class DiagnosisPostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Diagnosis
         fields = ['id', 'patient_date_of_birth', 'patient_name', 'image_url', 'user']
+
+class DiagnosisDetailSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    username = serializers.ReadOnlyField(source='user.username')
+    class Meta:
+        model = Diagnosis
+        fields = ["id", "diagnosis_result", "diagnosis_date", "patient_date_of_birth", "patient_name", "image_url", "user", "username"]

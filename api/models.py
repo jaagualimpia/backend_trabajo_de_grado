@@ -18,3 +18,6 @@ class Diagnosis(models.Model):
     patient_date_of_birth = models.DateTimeField(auto_now=True)
     patient_name = models.CharField(max_length=100)
     image_url = models.ImageField(upload_to='images/', blank=True, null=True)
+
+
+    
