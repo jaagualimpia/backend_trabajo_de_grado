@@ -41,13 +41,3 @@ class AIModelLoader:
         result = self._model.predict(bw_image)
         class_names = ['adenocarcinoma', 'large cell carcinoma', 'normal', 'squamous cell carcinoma']
         return class_names[np.argmax(result)], np.round(result)
-
-# if __name__ == "__main__":
-#     ai_model_loader = AIModelLoader()
-#     image_path = "LungCancer1_CMzqGO1.jpg"
-#     prediction, result = ai_model_loader.predict_image(image_path)
-#     print("Predicted class:", prediction)
-#     print("Raw prediction scores:", result)
-
-
-
