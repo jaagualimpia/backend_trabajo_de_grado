@@ -15,6 +15,8 @@ from dotenv import load_dotenv
 from datetime import timedelta
 from corsheaders.defaults import default_headers
 
+from ai_model.ai_services.inference_service import AIModelLoader
+
 load_dotenv()
 
 print(os.environ.get('SECRET-KEY'))
@@ -22,7 +24,7 @@ print(os.environ.get('SECRET-KEY'))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+model = AIModelLoader()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 

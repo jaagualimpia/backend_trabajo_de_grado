@@ -1,4 +1,6 @@
+from io import BytesIO
 from django.shortcuts import render
+from ai_model.ai_services.inference_service import AIModelLoader
 from api.models import User, Diagnosis
 from rest_framework import permissions, viewsets
 from api.serializers import DiagnosisDetailSerializer, UserSerializer, DiagnosisSerializer, DiagnosisPostSerializer
@@ -7,10 +9,11 @@ from rest_framework.response import Response
 import rest_framework.status as status 
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
+from PIL import Image
 # Create your views here.
 
 jwt_authentication = JWTAuthentication()
+AI_model = AIModelLoader()
 
 class DiagnosisViewSet(viewsets.ModelViewSet):
     """
@@ -59,12 +62,15 @@ class DiagnosisList(APIView):
         try:
             user, token = jwt_authentication.authenticate(request)
 
-            request.data["user"] = user.id     
-            # print(request.data)   
+            request.data["user"] = user.id    
+            image_file = request.FILES.get('image_url').file
+            result = AI_model.predict_image(image_file)[0]
+            print("aqui")
+            request.data["diagnosis_result"] = result
+    
             diagnosis = DiagnosisPostSerializer(data=request.data)
-            if diagnosis.is_valid():
-                print(diagnosis.validated_data["patient_date_of_birth"])
 
+            if diagnosis.is_valid():
                 diagnosis.save()
                 return Response(diagnosis.data, status=status.HTTP_201_CREATED)
             else:
