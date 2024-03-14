@@ -1,1 +1,5 @@
 .env
+/images
+db.sqlite3
+*.yml
+*.pyc

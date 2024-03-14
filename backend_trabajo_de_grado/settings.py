@@ -34,9 +34,9 @@ model = AIModelLoader()
 SECRET_KEY = os.environ.get('SECRET-KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["http://localhost:3000", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOW_HEADERS = (
     *default_headers,
@@ -123,8 +123,12 @@ SIMPLE_JWT = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'NAME': os.environ.get('POSTRGRES_DB'),                      
+        'USER': os.environ.get('POSTRGRES_USER'),
+        'PASSWORD': os.environ.get('POSTRGRES_PASSWORD'),
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
