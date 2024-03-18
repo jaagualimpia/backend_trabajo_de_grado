@@ -54,7 +54,23 @@ class SignUpView(APIView):
             return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
         else:
             return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
+class tokenAvailability(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        user, token = jwt_authentication.authenticate(request)
+        pk = user.id
+
+        user = User.objects.get(pk=pk)
+
+        if user is not None:
+            print(user)
+            return Response({"status": True}, status=status.HTTP_200_OK)
+        else:
+            return Response({"status": False}, status=status.HTTP_401_UNAUTHORIZED)
+
+
 class DiagnosisList(APIView):
     permission_classes = [permissions.IsAuthenticated]
 

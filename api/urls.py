@@ -18,6 +18,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('diagnosis', views.DiagnosisList.as_view(), name='diagnosis-list'),
     path('diagnosis/<int:pk>', views.DiagnosisDetail.as_view(), name='diagnosis-detail'),
+    path('token', views.tokenAvailability.as_view(), name='token_verification'),
     ]
 
 urlpatterns += router.urls
